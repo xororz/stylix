@@ -18,17 +18,17 @@ in
     enableLeftBackColors = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = lib.mdDoc "enables background colors on the left side of the bar";
+      description = "enables background colors on the left side of the bar";
     };
     enableCenterBackColors = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = lib.mdDoc "enables background colors on the center of the bar";
+      description = "enables background colors on the center of the bar";
     };
     enableRightBackColors = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = lib.mdDoc "enables background colors on the right side of the bar";
+      description = "enables background colors on the right side of the bar";
     };
   };
 
@@ -41,7 +41,7 @@ in
       @define-color base0C ${base0C}; @define-color base0D ${base0D}; @define-color base0E ${base0E}; @define-color base0F ${base0F};
 
       * {
-          font-family: ${sansSerif.name};
+          font-family: "${sansSerif.name}";
           font-size: ${builtins.toString sizes.desktop}pt;
       }
 
