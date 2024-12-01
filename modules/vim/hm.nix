@@ -1,10 +1,9 @@
 { pkgs, config, lib, ... }:
 
-with lib;
-
 let
   themeFile = config.lib.stylix.colors {
     templateRepo = config.lib.stylix.templates.base16-vim;
+    target = "base16";
   };
 
   themePlugin = pkgs.vimUtils.buildVimPlugin {
@@ -20,7 +19,7 @@ let
   };
 
   vimOptions = let
-    fonts = config.stylix.fonts;
+    inherit (config.stylix) fonts;
   in {
     plugins = [ themePlugin ];
     extraConfig = with config.lib.stylix.colors.withHashtag; ''
@@ -47,16 +46,15 @@ let
         \ 'base0F': '${base0F}',
       \ }
 
-      set guifont=${escape [" "] fonts.monospace.name}:h${toString fonts.sizes.terminal}
+      set guifont=${lib.escape [" "] fonts.monospace.name}:h${toString fonts.sizes.terminal}
     '';
   };
 
 in {
   options.stylix.targets.vim.enable =
-    config.lib.stylix.mkEnableTarget "Vim and/or Neovim" true;
+    config.lib.stylix.mkEnableTarget "Vim" true;
 
-  config = lib.mkIf config.stylix.targets.vim.enable {
+  config = lib.mkIf (config.stylix.enable && config.stylix.targets.vim.enable) {
     programs.vim = vimOptions;
-    programs.neovim = vimOptions;
   };
 }

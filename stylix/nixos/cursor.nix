@@ -1,7 +1,9 @@
-{ config, ... }:
-
-let
+{
+  config,
+  lib,
+  ...
+}: let
   cfg = config.stylix.cursor;
 in {
-  imports = [ ../cursor.nix ];
+  imports = [../cursor.nix];
 }
