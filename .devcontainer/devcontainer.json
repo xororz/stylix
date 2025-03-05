@@ -10,15 +10,24 @@
 		}
 	},
 
-	// https://github.com/NixOS/nix/issues/6680#issuecomment-1230902525
-	"postCreateCommand": "sudo apk add acl",
-	"postStartCommand": "sudo setfacl -k /tmp",
+	// Work around https://github.com/NixOS/nix/issues/6680#issuecomment-1230902525,
+	// also install direnv and trust our .envrc so the developer shell is entered automatically
+	"postCreateCommand":  [ "sudo", "apk", "add", "acl", "direnv" ],
+	"postStartCommand": {
+		"facl": [ "sudo", "setfacl", "-k", "/tmp" ],
+		"direnv": [ "direnv", "allow", "${containerWorkspaceFolder}" ]
+	},
 
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"jnoortheen.nix-ide"
-			]
+				"jnoortheen.nix-ide",
+				"mkhl.direnv"
+			],
+			"settings": {
+				"direnv.restart.automatic": true,
+				"direnv.status.showChangesCount": false
+			}
 		}
 	}
 }
