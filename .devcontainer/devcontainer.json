@@ -1,0 +1,24 @@
+{
+	"name": "Alpine",
+	"image": "mcr.microsoft.com/devcontainers/base:alpine-3.20",
+
+	"features": {
+		"ghcr.io/devcontainers/features/nix:1": {
+			"extraNixConfig": "extra-experimental-features = nix-command flakes, extra-substituters = https://stylix.cachix.org, extra-trusted-public-keys = stylix.cachix.org-1:iTycMb+viP8aTqhRDvV5qjs1jtNJKH9Jjvqyg4DYxhw=",
+			"multiUser": true,
+			"version": "latest"
+		}
+	},
+
+	// https://github.com/NixOS/nix/issues/6680#issuecomment-1230902525
+	"postCreateCommand": "sudo apk add acl",
+	"postStartCommand": "sudo setfacl -k /tmp",
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"jnoortheen.nix-ide"
+			]
+		}
+	}
+}
