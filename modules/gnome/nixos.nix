@@ -55,14 +55,5 @@ in
         # Cursor settings are usually applied via Home Manager,
         # but the login screen uses a separate database.
         environment.systemPackages = [ config.stylix.cursor.package ];
-        programs.dconf.profiles.gdm.databases = [
-          {
-            lockAll = true;
-            settings."org/gnome/desktop/interface" = {
-              cursor-theme = config.stylix.cursor.name;
-              cursor-size = lib.gvariant.mkInt32 config.stylix.cursor.size;
-            };
-          }
-        ];
       };
 }
