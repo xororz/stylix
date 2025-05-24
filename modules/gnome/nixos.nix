@@ -58,16 +58,5 @@ in
         environment.systemPackages = lib.mkIf (config.stylix.cursor != null) [
           config.stylix.cursor.package
         ];
-        programs.dconf.profiles.gdm.databases =
-          lib.mkIf (config.stylix.cursor != null)
-            [
-              {
-                lockAll = true;
-                settings."org/gnome/desktop/interface" = {
-                  cursor-theme = config.stylix.cursor.name;
-                  cursor-size = lib.gvariant.mkInt32 config.stylix.cursor.size;
-                };
-              }
-            ];
       };
 }
